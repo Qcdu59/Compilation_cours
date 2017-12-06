@@ -1,0 +1,8 @@
+public class Yytoken {
+    private String description;
+    private int value;
+
+    public Yytoken(String d) {
+	description = d;
+    }
+}
