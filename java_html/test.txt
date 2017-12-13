@@ -1,0 +1,9 @@
+import oui.non.aller
+
+public class Oui {
+       private int oui;
+
+       public Oui() {
+       	      oui = 5;
+       }
+}
