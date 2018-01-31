@@ -1,0 +1,51 @@
+%%
+
+%class DogCat
+
+%public
+%unicode
+%standalone
+
+%states DOG,LETTREC,CAT
+
+d=[dD]
+o=[oO]
+g=[gG]
+c=[cC]
+a=[aA]
+t=[tT]
+
+%%
+<YYINITIAL>{d}{o}{g}	{
+							yybegin(DOG);
+							System.out.println("DOG");
+						}
+<DOG>[^cC]*{c}	{
+					System.out.println(yytext());}		
+				}
+				
+<DOG>{c}	{
+				yybegin(LETTREC);
+				System;out.println("LETTREC");
+			}
+				
+<LETTREC>{a}	{
+					yybegin(CAT);
+					System.out.println("LETTREC - CAT");
+				}
+				
+<LETTREC>[^aA]	{
+					yybegin(DOG);
+					System.out.println("LETTREC - DOG");
+				}
+
+<CAT>[^tT]	{
+				yybegin(DOG);
+				System.out.println("CAT - DOG");
+			}
+			
+<CAT>{t}	{
+				yybegin(YYINITIAL);
+				System.out.println("CAT");
+			}
+.	{ ; }
