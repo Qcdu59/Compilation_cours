@@ -1,0 +1,44 @@
+import java_cup.runtime.*;
+
+terminal PLUS, MOINS, FOIS, PG, PD, TYPE, IDENT;
+terminal PV, EGAL, ENTIER, READ, WRITE, VIRG, NEG, OR, IF, ELSE;
+non terminal programme, declaration, declarations, declarationlist, instructions;
+non terminal instruction, instruction_if, expr, if, else, cond_bool;
+
+precedence left PLUS, MOINS;
+precedence left FOIS;
+
+start with programme;
+
+programme ::= declarations instructions;
+
+declarations ::= declarations declaration | ;
+instructions ::= instructions instruction_if | ;
+
+declaration ::= TYPE IDENT declarationlist;
+declarationlist ::= PV | VIRG IDENT declarationlist;
+
+instruction_if ::= PV
+	| IDENT EGAL expr PV
+	| IDENT EGAL READ PG PD PV
+	| WRITE PG expr PD PV
+	| if;
+	
+instruction ::= PV
+	| IDENT EGAL expr PV
+	| IDENT EGAL READ PG PD PV
+	| WRITE PG expr PD PV;
+	
+expr ::= IDENT
+	| ENTIER 
+	| NEG
+	| PG expr PD 
+	| expr PLUS expr 
+	| expr FOIS expr 
+	| expr MOINS expr;
+
+cond_bool ::= expr OR expr;
+
+if ::= IF PG cond_bool PD instruction else ;
+else ::= ELSE instruction | ;
+
